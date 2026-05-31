@@ -1,0 +1,123 @@
+// Authentication translations (user + surgeon)
+export const auth = {
+  EN: {
+    // Auth — shared
+    authEmail: "Email Address",
+    authPassword: "Password",
+    authFullName: "Full Name",
+    authShowPassword: "Show password",
+    authHidePassword: "Hide password",
+
+    // Auth — Login (regular user)
+    loginTitle: "Sign In to Your Account",
+    registerTitle: "Create a New Account",
+    forgotTitle: "Forgot Your Password?",
+    loginDesc: "Track your orders, manage addresses and account details.",
+    registerDesc: "Create a free account to simplify your shopping experience.",
+    forgotDesc: "We'll send a password reset link to your email.",
+    loginBtn: "Sign In",
+    registerBtn: "Create Account",
+    forgotBtn: "Send Reset Link",
+    noAccount: "Don't have an account?",
+    hasAccount: "Already have an account?",
+    switchToRegister: "Register for free",
+    switchToLogin: "Sign in",
+    successLogin: "Signed in successfully, redirecting...",
+    successRegister: "Account created! Please check your email to verify.",
+    successForgot: "Reset link sent to your email. Please check your inbox.",
+    forgotPassword: "Forgot password?",
+    backToLogin: "Back to sign in",
+
+    // Auth — Surgeon
+    surgeonLogin: "Log In",
+    surgeonRegister: "Register",
+    surgeonHospitalName: "Hospital/Clinic Name",
+    surgeonSpecialty: "Specialty",
+    surgeonPhone: "Phone Number",
+    surgeonSubmitLogin: "Log In",
+    surgeonSubmitRegister: "Submit Application",
+    surgeonToggleToRegister: "Don't have an account? Apply now.",
+    surgeonToggleToLogin: "Already have an account? Log in.",
+
+    // Surgeon Dashboard
+    signOut: "Sign Out",
+    profileNotFound: "Profile Not Found",
+    profileNotFoundDesc: "Your application could not be located. Please contact support if you have already registered.",
+    applicationRejected: "Application Rejected",
+    applicationRejectedDesc: "Your surgeon portal application was not approved. For more information, please contact us at info@wellnur.com.",
+    accountPending: "Account Pending Approval",
+    accountPendingDesc: "Wellnur team is reviewing your application. You will be notified by email when approved, and you will have access to all portal features.",
+    accountApproved: "Account Approved",
+    accountApprovedDesc: "You can now create special orders for your patients and access documentation through the portal.",
+    profileInfo: "Profile Information",
+    quickActions: "Quick Actions",
+    newPrescription: "New Prescription / Order",
+    newPrescriptionDesc: "Create a compression garment order for your patient",
+    myPatients: "My Patients",
+    myPatientsDesc: "View your previous orders and patient records",
+
+    // Profile
+    myOrders: "My Orders",
+    logout: "Logout",
+  },
+  TR: {
+    // Auth — shared
+    authEmail: "E-posta Adresi",
+    authPassword: "Şifre",
+    authFullName: "Ad Soyad",
+    authShowPassword: "Şifreyi göster",
+    authHidePassword: "Şifreyi gizle",
+
+    // Auth — Login (regular user)
+    loginTitle: "Hesabınıza Giriş Yapın",
+    registerTitle: "Yeni Hesap Oluşturun",
+    forgotTitle: "Şifrenizi mi Unuttunuz?",
+    loginDesc: "Siparişlerinizi takip edin, adres ve bilgilerinizi yönetin.",
+    registerDesc: "Ücretsiz hesap oluşturun, alışverişinizi kolaylaştırın.",
+    forgotDesc: "E-posta adresinize sıfırlama bağlantısı göndereceğiz.",
+    loginBtn: "Giriş Yap",
+    registerBtn: "Kayıt Ol",
+    forgotBtn: "Sıfırlama Bağlantısı Gönder",
+    noAccount: "Hesabınız yok mu?",
+    hasAccount: "Zaten hesabınız var mı?",
+    switchToRegister: "Ücretsiz kayıt olun",
+    switchToLogin: "Giriş yapın",
+    successLogin: "Başarıyla giriş yapıldı, yönlendiriliyorsunuz...",
+    successRegister: "Hesabınız oluşturuldu! Lütfen e-postanızı doğrulayın.",
+    successForgot: "Sıfırlama bağlantısı e-postanıza gönderildi. Lütfen gelen kutunuzu kontrol edin.",
+    forgotPassword: "Şifremi unuttum",
+    backToLogin: "Girişe dön",
+
+    // Auth — Surgeon
+    surgeonLogin: "Giriş Yap",
+    surgeonRegister: "Kayıt Ol",
+    surgeonHospitalName: "Hastane/Klinik Adı",
+    surgeonSpecialty: "Uzmanlık Alanı",
+    surgeonPhone: "Telefon Numarası",
+    surgeonSubmitLogin: "Giriş Yap",
+    surgeonSubmitRegister: "Başvuruyu Gönder",
+    surgeonToggleToRegister: "Hesabınız yok mu? Hemen başvurun.",
+    surgeonToggleToLogin: "Zaten hesabınız var mı? Giriş yapın.",
+
+    // Surgeon Dashboard
+    signOut: "Çıkış Yap",
+    profileNotFound: "Profil Bulunamadı",
+    profileNotFoundDesc: "Kayıt işlemleriniz tamamlanmamış veya profilinize ulaşılamıyor. Destek ekibimizle iletişime geçin.",
+    applicationRejected: "Başvurunuz Reddedildi",
+    applicationRejectedDesc: "Cerrah portalı başvurunuz onaylanmadı. Detaylı bilgi için info@wellnur.com adresinden bizimle iletişime geçin.",
+    accountPending: "Hesabınız Onay Bekliyor",
+    accountPendingDesc: "Wellnur ekibi başvurunuzu inceliyor. Onaylandığında e-posta ile bilgilendirileceksiniz ve portalın tüm özelliklerine erişebileceksiniz.",
+    accountApproved: "Hesabınız Onaylandı",
+    accountApprovedDesc: "Portal üzerinden hastalarınız için özel sipariş oluşturabilir ve dökümanlara erişebilirsiniz.",
+    profileInfo: "Profil Bilgileri",
+    quickActions: "Hızlı İşlemler",
+    newPrescription: "Yeni Reçete / Sipariş",
+    newPrescriptionDesc: "Hastanız için kompresyon giysisi siparişi verin",
+    myPatients: "Hastalarım",
+    myPatientsDesc: "Önceki siparişleri ve kayıtları görüntüleyin",
+
+    // Profile
+    myOrders: "Siparişlerim",
+    logout: "Çıkış Yap",
+  },
+};
