@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'motion/react';
+import { Star } from 'lucide-react';
+import toast from 'react-hot-toast';
 import MagicButton from '../components/ui/MagicButton';
 import TextReveal from '../components/ui/TextReveal';
 import useLangStore from '../store/useLangStore';
@@ -21,6 +24,24 @@ export default function Home() {
   const trans = t[lang];
   const { categories } = useCategories();
   const { products } = useProducts();
+  const [email, setEmail] = useState('');
+
+  const testimonials = [
+    { text: trans.t1Text, name: trans.t1Name, role: trans.t1Role },
+    { text: trans.t2Text, name: trans.t2Name, role: trans.t2Role },
+    { text: trans.t3Text, name: trans.t3Name, role: trans.t3Role },
+  ];
+
+  const handleNewsletter = (e) => {
+    e.preventDefault();
+    const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!valid) {
+      toast.error(trans.newsletterInvalid);
+      return;
+    }
+    toast.success(trans.newsletterSuccess);
+    setEmail('');
+  };
 
   return (
     <div className="page-transition-enter-active">
@@ -37,12 +58,12 @@ export default function Home() {
               >
                 {trans.advMedComp}
               </motion.span>
-              <div className="text-5xl md:text-7xl font-heading font-bold text-foreground leading-tight mb-6">
+              <h1 className="text-5xl md:text-7xl font-heading font-bold text-foreground leading-tight mb-6">
                 <TextReveal text={trans.optFor} />
-                <div className="text-primary mt-2">
+                <span className="text-primary mt-2 block">
                   <TextReveal text={trans.yourRecov} />
-                </div>
-              </div>
+                </span>
+              </h1>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -226,6 +247,66 @@ export default function Home() {
               <h3 className="font-heading font-bold text-xl mb-3">{trans.secureOrder}</h3>
               <p className="text-muted-foreground">{trans.secureOrderDesc}</p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials / Social Proof Section */}
+      <section className="py-24 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">{trans.testimonialsTitle}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{trans.testimonialsDesc}</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {testimonials.map((item, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-50px' }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="bg-secondary/10 rounded-xl p-8 border border-zinc-200 flex flex-col"
+              >
+                <div className="flex gap-1 mb-4 text-primary">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-current" />
+                  ))}
+                </div>
+                <p className="text-foreground mb-6 flex-grow">&ldquo;{item.text}&rdquo;</p>
+                <div>
+                  <div className="font-heading font-bold">{item.name}</div>
+                  <div className="text-sm text-muted-foreground">{item.role}</div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-20 bg-primary/5 border-t">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4">{trans.newsletterTitle}</h2>
+            <p className="text-muted-foreground mb-8">{trans.newsletterDesc}</p>
+            <form onSubmit={handleNewsletter} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder={trans.newsletterPlaceholder}
+                aria-label={trans.newsletterPlaceholder}
+                className="flex-1 h-14 rounded-full border border-zinc-300 bg-background px-6 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+              <button
+                type="submit"
+                className="h-14 rounded-full bg-primary px-8 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors whitespace-nowrap"
+              >
+                {trans.newsletterBtn}
+              </button>
+            </form>
           </div>
         </div>
       </section>
