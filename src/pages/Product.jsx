@@ -31,7 +31,22 @@ export default function Product() {
     if (product && product.colors && product.colors.length > 0 && !selectedColor) {
       setSelectedColor(product.colors[0]);
     }
-  }, [product, selectedColor]);
+  }, [product]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Dynamic document title for SEO — must run before any early return to satisfy Rules of Hooks
+  useEffect(() => {
+    if (!product) return;
+    const name = product.nameKey ? trans[product.nameKey] : product.name;
+    const desc = product.descKey ? trans[product.descKey] : product.description;
+    document.title = `${name} | Wellnur Medical`;
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute('content', desc?.substring(0, 160) || '');
+    }
+    return () => {
+      document.title = 'Wellnur Medical | Ameliyat Sonrası Medikal Kompresyon Giysileri';
+    };
+  }, [product, trans]);
 
   if (loading) {
     return <div className="pt-32 pb-20 min-h-screen flex justify-center items-center"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>;
@@ -45,24 +60,15 @@ export default function Product() {
   const productDesc = product.descKey ? trans[product.descKey] : product.description;
   const productFeatures = product.featuresKey ? trans[product.featuresKey] : [];
   const productParams = product.parametersKey ? trans[product.parametersKey] : [];
-  
-  const category = fetchedCategories.find(c => c.id === product.category_id) || categories.find(c => c.id === product.categoryId);
+
+  const productCategoryId = product.category_id || product.categoryId;
+  const category = fetchedCategories.find(c => c.id === productCategoryId) || categories.find(c => c.id === productCategoryId);
   const categoryName = category?.nameKey ? trans[category.nameKey] : category?.name || '';
-  
+
+  const productImages = Array.isArray(product.images) ? product.images : [];
+
   const selectedVariantStock = product.variants?.find(v => v.size === selectedSize && v.color_name === selectedColor?.name)?.stock || 0;
   const isOutOfStock = product.variants && product.variants.length > 0 && selectedSize && selectedColor && selectedVariantStock <= 0;
-
-  // Dynamic document title for SEO
-  useEffect(() => {
-    document.title = `${productName} | Wellnur Medical`;
-    const metaDesc = document.querySelector('meta[name="description"]');
-    if (metaDesc) {
-      metaDesc.setAttribute('content', productDesc?.substring(0, 160) || '');
-    }
-    return () => {
-      document.title = 'Wellnur Medical | Ameliyat Sonrası Medikal Kompresyon Giysileri';
-    };
-  }, [productName, productDesc]);
 
   // JSON-LD Product structured data
   const productJsonLd = {
@@ -70,7 +76,7 @@ export default function Product() {
     "@type": "Product",
     "name": productName,
     "description": productDesc,
-    "image": product.images,
+    "image": productImages,
     "brand": {
       "@type": "Brand",
       "name": "Wellnur Medical"
@@ -80,7 +86,7 @@ export default function Product() {
       "@type": "Offer",
       "url": `https://wellnur.com/product/${product.slug}`,
       "priceCurrency": "TRY",
-      "price": product.price.toFixed(2),
+      "price": Number(product.price).toFixed(2),
       "availability": "https://schema.org/InStock",
       "seller": {
         "@type": "Organization",
@@ -124,7 +130,7 @@ export default function Product() {
           {/* Image Gallery */}
           <div className="flex flex-col-reverse md:flex-row gap-4">
             <div className="flex md:flex-col gap-4 overflow-x-auto md:overflow-visible no-scrollbar">
-              {product.images.map((img, i) => (
+              {productImages.map((img, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImage(i)}
@@ -144,7 +150,7 @@ export default function Product() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  src={product.images[activeImage]}
+                  src={productImages[activeImage]}
                   alt={productName}
                   className="absolute inset-0 w-full h-full object-cover"
                 />
@@ -155,7 +161,7 @@ export default function Product() {
           {/* Product Info */}
           <div className="flex flex-col pt-4">
             <div className="mb-2">
-              <Link to={`/category/${product.categoryId}`} className="text-sm font-medium text-primary hover:underline uppercase tracking-wider">
+              <Link to={`/category/${productCategoryId}`} className="text-sm font-medium text-primary hover:underline uppercase tracking-wider">
                 {categoryName}
               </Link>
             </div>
@@ -182,7 +188,7 @@ export default function Product() {
               {product.colors && product.colors.length > 0 && (
                 <div className="mb-8">
                   <div className="flex justify-between items-center mb-3">
-                    <span className="font-medium text-sm">{trans.color}: <span className="text-muted-foreground">{selectedColor.name}</span></span>
+                    <span className="font-medium text-sm">{trans.color}: <span className="text-muted-foreground">{selectedColor?.name}</span></span>
                   </div>
                   <div className="flex gap-3">
                     {product.colors.map((color, i) => (
